@@ -1,0 +1,35 @@
+.hero,
+.case-hero,
+.case-card,
+.image-grid img {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before,
+.case-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(16, 224, 192, 0.12) 40%,
+    transparent 80%
+  );
+  opacity: 0;
+  transform: translateX(-25%);
+  pointer-events: none;
+}
+
+.hero:hover::before,
+.case-hero:hover::before {
+  opacity: 1;
+  transform: translateX(10%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.case-card:hover {
+  border-color: rgba(16, 224, 192, 0.65);
+  background-position: 100% 0;
+}

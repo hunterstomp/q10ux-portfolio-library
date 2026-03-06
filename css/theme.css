@@ -1,0 +1,565 @@
+
+/* Theme System (Dark + Light) */
+/* Default theme follows OS preference unless user overrides via html[data-theme] */
+
+:root{
+  --h1-subtitle: rgba(255,255,255,0.72);
+  --g1: #00f5d4; /* vivid aqua */
+  --g2: #ff6fd8; /* vivid magenta */
+  --g3: #ffd66f; /* warm accent */
+  --g4: #6cf0ff; /* cool highlight */
+  --hero-grad: linear-gradient(90deg, rgba(110,231,255,1) 0%, rgba(0,245,212,1) 48%, rgba(159,123,255,1) 100%);
+  --rule-grad: linear-gradient(90deg, rgba(110,231,255,0) 0%, rgba(110,231,255,0.95) 22%, rgba(0,245,212,0.95) 52%, rgba(159,123,255,0.9) 82%, rgba(159,123,255,0) 100%);
+  --glow-a: rgba(0,245,212,.22);
+  --glow-b: rgba(255,111,216,.18);
+}
+
+/* OS-driven defaults */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg: #f7f8fe;
+    --bg-alt: #ffffff;
+    --fg: #0b1020;
+    --muted: #3f4966;
+    --accent: #007c6f;
+    --accent-soft: rgba(0,124,111,0.10);
+    --border-subtle: rgba(12,18,40,0.14);
+    --grid-line: rgba(16,24,60,0.06);
+  }
+}
+
+/* Explicit overrides */
+html[data-theme="dark"]{
+  --bg: #040612;
+  --bg-alt: #070a16;
+  --fg: #ffffff;
+  --muted: #e3e6f5;
+  --accent: #00f5d4;
+  --accent-soft: rgba(0,245,212,0.12);
+  --border-subtle: rgba(225,235,255,0.18);
+  --grid-line: rgba(190,220,255,0.09);
+}
+html[data-theme="light"]{
+  --bg: #f7f8fe;
+  --bg-alt: #ffffff;
+  --fg: #0b1020;
+  --muted: #3f4966;
+  --accent: #007c6f;
+  --accent-soft: rgba(0,124,111,0.10);
+  --border-subtle: rgba(12,18,40,0.14);
+  --grid-line: rgba(16,24,60,0.06);
+}
+
+/* Utility: vivid gradient text */
+.gradient-text{
+  background: var(--hero-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gradient rule used as section divider */
+.gradient-rule{
+  height: 1px;
+  width: 100%;
+  background: var(--rule-grad);
+  opacity: .95;
+}
+
+/* Theme toggle button */
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  border:1px solid var(--border-subtle);
+  background: linear-gradient(135deg, rgba(6,9,28,0.42), rgba(6,12,32,0.26));
+  color: var(--fg);
+  height: 36px;
+  padding: 0 .7rem;
+  border-radius: 999px;
+  cursor:pointer;
+  user-select:none;
+  transition: transform 120ms ease, background 180ms ease, border-color 180ms ease;
+}
+html[data-theme="light"] .theme-toggle{
+  background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(245,246,255,0.78));
+}
+.theme-toggle:active{ transform: translateY(1px) scale(.99); }
+.theme-toggle .icon{
+  width:16px; height:16px; display:block;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.12));
+}
+.theme-toggle .label{
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Make panel backgrounds less murky in dark mode */
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .case-panel,
+html[data-theme="dark"] .ink-scrolly__panel{
+  background: linear-gradient(135deg, rgba(10,14,40,0.78), rgba(8,18,46,0.66));
+}
+
+/* Light mode panel styling */
+html[data-theme="light"] .panel,
+html[data-theme="light"] .case-panel,
+html[data-theme="light"] .ink-scrolly__panel{
+  background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(246,248,255,0.80));
+  box-shadow: 0 18px 50px rgba(10,12,20,0.12);
+}
+
+/* Improve hero gradient pop (less muddy) */
+.hero-gradient{
+  background: var(--hero-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color: transparent;
+  text-shadow: 0 0 24px var(--glow-a);
+}
+
+/* Links and accents */
+a{ color: var(--accent); }
+a:hover{ filter: drop-shadow(0 0 10px var(--glow-a)); }
+
+
+/* Stronger gradient presence in headers (Dark + Dossier mode) */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3{
+  color: var(--fg);
+}
+
+html[data-theme="dark"] .case-main h2,
+html[data-theme="dark"] .case-main h3{
+  position: relative;
+  text-shadow: 0 0 24px rgba(0,245,212,0.10);
+}
+
+html[data-theme="dark"] .case-main h2::after{
+  content:"";
+  display:block;
+  height: 2px;
+  width: min(520px, 92%);
+  margin-top: .55rem;
+  background: linear-gradient(90deg, rgba(0,245,212,.0), rgba(0,245,212,.95), rgba(255,111,216,.85), rgba(108,240,255,.9), rgba(0,245,212,.0));
+  filter: drop-shadow(0 0 18px rgba(0,245,212,0.22));
+  opacity: .95;
+}
+
+html[data-theme="dark"] .case-main h3::after{
+  content:"";
+  display:block;
+  height: 1px;
+  width: min(360px, 86%);
+  margin-top: .45rem;
+  background: linear-gradient(90deg, rgba(0,245,212,.0), rgba(255,111,216,.70), rgba(0,245,212,.0));
+  opacity: .85;
+}
+
+/* Make “muted” text actually readable in dark mode (no near-gray) */
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .meta,
+html[data-theme="dark"] .section-eyebrow,
+html[data-theme="dark"] .ink-scrolly__eyebrow,
+html[data-theme="dark"] .theme-toggle .label{
+  color: rgba(255,255,255,0.78) !important;
+}
+
+
+
+/* --- Case hero contrast fix (header text should never get lost) --- */
+/* The case hero background is dark/gradient even in light theme, so force hero text to a high-contrast ink. */
+.case-hero,
+.hero{
+  color: #ffffff;
+}
+
+.case-hero .section-eyebrow,
+.case-hero .meta,
+.case-hero p,
+.case-hero a{
+  color: rgba(255,255,255,0.86);
+}
+
+/* Add a subtle scrim behind hero text to guarantee readability on vivid gradients */
+.case-hero{
+  position: relative;
+  overflow: hidden;
+}
+.case-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  /* Focus scrim where text usually sits (left/center) */
+  background:
+    radial-gradient(circle at 35% 40%, rgba(0,0,0,0.55), transparent 58%),
+    linear-gradient(90deg, rgba(0,0,0,0.48), rgba(0,0,0,0.10) 55%, rgba(0,0,0,0.35));
+  opacity: .72;
+  z-index: 0;
+}
+.case-hero > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* Title contrast + crisp shadow (works in both themes) */
+.case-hero h1,
+.case-hero .case-title{
+  color:#ffffff;
+  text-shadow:
+    0 2px 18px rgba(0,0,0,0.70),
+    0 0 28px rgba(0,245,212,0.10);
+}
+
+/* Optional: make only the accent words gradient, while keeping most of the title solid white */
+.case-hero h1 .accent,
+.case-hero .case-title .accent{
+  background: var(--hero-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color: transparent;
+  text-shadow: none;
+}
+
+/* Ensure hero subtitle stays readable */
+.case-hero .case-subtitle,
+.case-hero .hero-subtitle{
+  color: rgba(255,255,255,0.84);
+  text-shadow: 0 2px 16px rgba(0,0,0,0.65);
+}
+
+/* Light theme: nav text stays dark, but hero remains white for contrast */
+html[data-theme="light"] .case-hero,
+html[data-theme="light"] .hero{
+  color:#ffffff;
+}
+
+
+
+/* --- Shine + polish: subtle motion + sleek transitions --- */
+:root{
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-inout: cubic-bezier(.65,0,.35,1);
+  --dur-fast: 140ms;
+  --dur-med: 260ms;
+  --dur-slow: 520ms;
+}
+
+@media (prefers-reduced-motion: no-preference){
+  html{ scroll-behavior: smooth; }
+}
+
+a, button{
+  transition: transform var(--dur-fast) var(--ease-out),
+              filter var(--dur-med) var(--ease-out),
+              color var(--dur-med) var(--ease-out),
+              background var(--dur-med) var(--ease-out),
+              border-color var(--dur-med) var(--ease-out),
+              opacity var(--dur-med) var(--ease-out);
+}
+a:hover{ transform: translateY(-1px); }
+a:active{ transform: translateY(0px); }
+
+.panel, .case-panel, .gallery, .flow-node, .ink-scrolly__panel{
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+.panel::before, .case-panel::before, .ink-scrolly__panel::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.10), transparent 45%),
+              linear-gradient(120deg, rgba(0,245,212,0.10), rgba(255,111,216,0.06), rgba(108,240,255,0.10));
+  opacity: 0;
+  transform: rotate(8deg) translateY(8%);
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events:none;
+}
+@media (hover:hover){
+  .panel:hover::before, .case-panel:hover::before, .ink-scrolly__panel:hover::before{
+    opacity: .55;
+  }
+}
+
+.site-header, .top-nav{ backdrop-filter: blur(10px); }
+
+.nav-links a{ position: relative; }
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  background: var(--rule-grad);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+@media (hover:hover){
+  .nav-links a:hover::after{
+    opacity: .85;
+    transform: translateY(0);
+  }
+}
+
+.reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+}
+.reveal.is-in{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out),
+              filter var(--dur-slow) var(--ease-out);
+}
+
+.case-main h2{ position: relative; }
+.case-main h2::before{
+  content:"";
+  position:absolute;
+  left: 0;
+  top: -10px;
+  width: min(240px, 60%);
+  height: 2px;
+  background: var(--hero-grad);
+  opacity: .14;
+  filter: blur(1px);
+}
+
+.theme-toggle{ box-shadow: 0 8px 30px rgba(0,0,0,0.22); }
+.theme-toggle:hover{ transform: translateY(-1px); }
+.theme-toggle:active{ transform: translateY(0px) scale(.99); }
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; animation: none !important; }
+  html{ scroll-behavior: auto; }
+}
+
+
+
+/* --- Arcade glass sheen for case study tiles --- */
+.case-card,
+.case-card-link{
+  transform: translateZ(0);
+}
+
+.case-card{
+  position: relative;
+  overflow: hidden;
+}
+
+.case-card-link{
+  position: relative;
+  display: block;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+/* layered glass */
+.case-card-link::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255,255,255,0.20), transparent 45%),
+    radial-gradient(circle at 86% 82%, rgba(0,245,212,0.10), transparent 52%);
+  opacity: .35;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+/* animated diagonal reflective sweep */
+.case-card-link::before{
+  content:"";
+  position:absolute;
+  top:-55%;
+  left:-65%;
+  width: 70%;
+  height: 220%;
+  pointer-events:none;
+  background: linear-gradient(120deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.06) 18%,
+      rgba(255,255,255,0.22) 28%,
+      rgba(0,245,212,0.18) 42%,
+      rgba(255,111,216,0.12) 55%,
+      rgba(255,255,255,0.10) 68%,
+      rgba(255,255,255,0.00) 78%);
+  filter: blur(0.2px);
+  opacity: 0;
+  transform: translateX(-20%) rotate(8deg);
+}
+
+/* tactile hover */
+@media (hover:hover){
+  .case-card:hover{
+    border-color: rgba(225,235,255,0.26);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.48);
+  }
+  .case-card-link:hover{
+    transform: translateY(-2px) scale(1.01);
+    filter: drop-shadow(0 0 26px rgba(0,245,212,0.12));
+  }
+  .case-card-link:hover::after{
+    opacity: .55;
+  }
+  .case-card-link:hover::before{
+    opacity: .92;
+    animation: q10_sheen_sweep 900ms var(--ease-out) both;
+  }
+}
+
+/* keep it snappy on repeated hovers */
+@keyframes q10_sheen_sweep{
+  0%{ transform: translateX(-30%) rotate(10deg); opacity: 0; }
+  12%{ opacity: .9; }
+  100%{ transform: translateX(240%) rotate(10deg); opacity: 0; }
+}
+
+/* focus-visible for keyboard */
+.case-card-link:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,245,212,0.55), 0 0 0 6px rgba(255,111,216,0.20);
+}
+
+
+
+/* Page leave */
+html.q10-page-leave{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+
+
+
+/* Rare second sweep (subtle, slower, less predictable) */
+.case-card-link .q10-sheen-rare{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+}
+
+.case-card-link .q10-sheen-rare::before{
+  content:"";
+  position:absolute;
+  top:-70%;
+  left:-90%;
+  width: 45%;
+  height: 260%;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0.00) 0%,
+    rgba(255,255,255,0.05) 18%,
+    rgba(108,240,255,0.12) 34%,
+    rgba(0,245,212,0.14) 48%,
+    rgba(255,111,216,0.10) 62%,
+    rgba(255,255,255,0.06) 72%,
+    rgba(255,255,255,0.00) 82%);
+  opacity: 0;
+  transform: translateX(-40%) rotate(12deg);
+  filter: blur(0.6px);
+}
+
+.case-card-link.q10-rare-sweep .q10-sheen-rare{
+  opacity: 1;
+}
+
+.case-card-link.q10-rare-sweep .q10-sheen-rare::before{
+  opacity: .65;
+  animation: q10_sheen_sweep_slow 1200ms var(--ease-out) both;
+}
+
+@keyframes q10_sheen_sweep_slow{
+  0%{ transform: translateX(-55%) rotate(12deg); opacity: 0; }
+  14%{ opacity: .65; }
+  100%{ transform: translateX(320%) rotate(12deg); opacity: 0; }
+}
+
+
+
+/* === Turnkey overrides (portable: swap css/theme.css with same name) === */
+
+/* Typography: enforce lighter weights (override typography.css) */
+.case-hero h1,
+.case-hero .case-title{
+  font-weight: 100 !important;
+  letter-spacing: -0.02em;
+}
+
+.case-hero .eyebrow,
+.eyebrow{
+  font-weight: 450 !important;
+  opacity: 0.92;
+}
+
+.case-hero .subtitle,
+.subtitle{
+  font-weight: 350 !important;
+  color: var(--h1-subtitle) !important;
+  max-width: 62ch;
+}
+
+/* Body copy: slightly lighter without going wispy */
+.case-main p,
+.case-main li,
+.case-main dd{
+  font-weight: 380 !important;
+}
+
+/* Theme-aware subtitle color */
+html[data-theme="light"]{
+  --h1-subtitle: rgba(20, 24, 34, 0.60);
+}
+html[data-theme="dark"]{
+  --h1-subtitle: rgba(255, 255, 255, 0.74);
+}
+
+/* No section transition: reveal is a no-op */
+.reveal{ opacity: 1 !important; transform: none !important; filter: none !important; }
+
+/* Full-bleed motion layer */
+.motion-layer{
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  height: min(56vh, 520px);
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: #000;
+}
+.motion-layer video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  opacity: 0.82;
+  filter: saturate(1.15) contrast(1.06);
+}
+.motion-layer .motion-scrim{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(0,0,0,0.55), transparent 60%),
+    linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.14) 55%, rgba(0,0,0,0.42));
+  pointer-events:none;
+}
+
+/* Disable any ink overlay/modal classes if present */
+.ink-overlay, .ink-modal, .ink-scrolly__overlay, .ink-scrolly__modal{ display:none !important; }

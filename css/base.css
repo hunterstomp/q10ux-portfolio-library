@@ -1,0 +1,93 @@
+:root {
+  --content-max: 1024px;
+  --rail-pad: min(5vw, 3rem);
+  --grid-line: rgba(180, 210, 255, 0.06);
+  --bg: #040612;
+  --bg-alt: #080b18;
+  --fg: #f5f5f5;
+  --muted: #b0b5c8;
+  --accent: #10e0c0;
+  --accent-soft: rgba(16, 224, 192, 0.08);
+  --border-subtle: #1c2133;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(16,224,192,0.16), transparent 60%),
+    radial-gradient(circle at 88% 100%, rgba(255,111,216,0.10), transparent 58%),
+    repeating-linear-gradient(0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 44px);
+  background-attachment: fixed;
+color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.section {
+  padding: 3.5rem min(5vw, 3rem);
+}
+
+.site-footer {
+  padding: 1.5rem min(5vw, 3rem);
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-align: center;
+  background: radial-gradient(circle at top, rgba(16,224,192,0.05), transparent);
+}
+
+.footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-inner a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.footer-inner a:hover {
+  text-decoration: underline;
+}
+
+body{ background: var(--bg); color: var(--fg); }
